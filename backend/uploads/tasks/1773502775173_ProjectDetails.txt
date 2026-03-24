@@ -1,0 +1,806 @@
+Good. Now we finalize this properly.
+
+No confusion. No half design.
+Below is your final 8-entity architecture with correct mappings — clean, realistic, and interview-ready.
+
+We will keep it:
+
+Strong
+
+Structured
+
+Not overengineered
+
+Achievable in 7–10 days
+
+✅ FINAL ENTITY LIST (8 Total)
+
+User
+
+Team
+
+TeamMember
+
+Project
+
+ProjectMember
+
+Task
+
+Comment
+
+TaskAttachment
+
+🧩 1️⃣ User Entity
+
+Represents system account.
+
+Fields:
+
+id (Long / UUID)
+
+username (unique)
+
+email (unique)
+
+password
+
+createdAt
+
+accountStatus (ACTIVE / DISABLED)
+
+Relationships:
+
+One User → Many TeamMembers
+
+One User → Many ProjectMembers
+
+One User → Many Tasks (assignedUser)
+
+One User → Many Comments
+
+One User → Many TaskAttachments (uploadedBy)
+
+🧩 2️⃣ Team Entity
+
+Represents company/workspace.
+
+Fields:
+
+id
+
+name
+
+description
+
+memberLimit
+
+createdAt
+
+createdBy (User)
+
+Relationships:
+
+One Team → Many TeamMembers
+
+One Team → Many Projects
+
+Many Teams → One User (createdBy)
+
+🧩 3️⃣ TeamMember Entity (Team-Level RBAC + Designation)
+
+Join entity between User and Team.
+
+Fields:
+
+id
+
+team (ManyToOne → Team)
+
+user (ManyToOne → User)
+
+role (ENUM: ADMIN / MEMBER / VIEWER)
+
+designation (String)
+
+joinedAt
+
+Mapping Meaning:
+
+User ↔ Team = Many-to-Many
+Handled via TeamMember.
+
+This allows:
+
+Same user different roles in different teams.
+
+Designation stored per team.
+
+🧩 4️⃣ Project Entity
+
+Represents project inside a team.
+
+Fields:
+
+id
+
+name
+
+description
+
+startDate
+
+deadline
+
+visibility (ENUM: PUBLIC / TEAM_ONLY / PRIVATE)
+
+status (ENUM: ACTIVE / CANCELLED / COMPLETED)
+
+createdAt
+
+team (ManyToOne → Team)
+
+projectLeader (ManyToOne → User)
+
+Relationships:
+
+One Project → Many Tasks
+
+One Project → Many ProjectMembers
+
+Many Projects → One Team
+
+Many Projects → One User (leader)
+
+🧩 5️⃣ ProjectMember Entity (Project-Level Access)
+
+Join entity between User and Project.
+
+Fields:
+
+id
+
+project (ManyToOne → Project)
+
+user (ManyToOne → User)
+
+role (ENUM: LEADER / MEMBER / VIEWER)
+
+joinedAt
+
+Purpose:
+
+Controls:
+
+Who can see private project
+
+Who is leader
+
+Who can assign tasks
+
+🧩 6️⃣ Task Entity (Core Entity)
+
+Represents work item.
+
+Fields:
+
+id
+
+title
+
+description
+
+status (ENUM: TODO / IN_PROGRESS / COMPLETED / DELAYED)
+
+priority (ENUM: LOW / MEDIUM / HIGH)
+
+startDate
+
+dueDate
+
+completionPercentage (Integer 0–100)
+
+createdAt
+
+project (ManyToOne → Project)
+
+assignedUser (ManyToOne → User)
+
+Relationships:
+
+Many Tasks → One Project
+
+Many Tasks → One User
+
+One Task → Many Comments
+
+One Task → Many TaskAttachments
+
+🧩 7️⃣ Comment Entity
+
+Represents task discussion.
+
+Fields:
+
+id
+
+content
+
+createdAt
+
+task (ManyToOne → Task)
+
+user (ManyToOne → User)
+
+Relationships:
+
+Many Comments → One Task
+
+Many Comments → One User
+
+🧩 8️⃣ TaskAttachment Entity
+
+Represents file uploaded to task.
+
+Fields:
+
+id
+
+fileName
+
+fileType
+
+filePath
+
+uploadedAt
+
+task (ManyToOne → Task)
+
+uploadedBy (ManyToOne → User)
+
+Relationships:
+
+Many Attachments → One Task
+
+Many Attachments → One User
+
+🔗 COMPLETE RELATIONSHIP SUMMARY
+Team Structure
+
+User
+↳ TeamMember
+↳ Team
+↳ Project
+↳ ProjectMember
+↳ Task
+↳ Comment
+↳ Attachment
+
+📊 Relationship Types (Clean Overview)
+From	To	Type
+User → TeamMember	One-to-Many	
+Team → TeamMember	One-to-Many	
+User ↔ Team	Many-to-Many (via TeamMember)	
+Team → Project	One-to-Many	
+User → Project (leader)	Many-to-One	
+User ↔ Project	Many-to-Many (via ProjectMember)	
+Project → Task	One-to-Many	
+User → Task (assigned)	One-to-Many	
+Task → Comment	One-to-Many	
+Task → Attachment	One-to-Many	
+🧠 Advanced Logic You Can Explain in Interview
+
+You can confidently explain:
+
+Multi-level RBAC using join entities
+
+Project visibility using enum-based filtering
+
+Team member limit enforcement
+
+Completion percentage tracking at task level
+
+Aggregating project completion via tasks
+
+Clean normalized relational database design
+
+This is NOT basic CRUD anymore.
+
+⚠ Brutally Honest Advice
+
+If you implement:
+
+Authentication
+
+Team + Project
+
+Task
+
+Basic RBAC
+
+Project visibility
+
+Comments
+
+You already have a strong project.
+
+If you try to implement:
+
+Complex analytics
+
+Nested permission matrix
+
+Department hierarchies
+
+Real-time WebSocket
+
+Email workflow
+
+Audit logs
+
+In 7 days — you’ll drown.
+
+Be strategic.
+
+If you want next, I can:
+
+Show exact mapping annotations structure (how entities reference each other)
+
+Draw ER diagram explanation in simple words
+
+Simplify this into “7-day realistic implementation version”
+
+Create final database table summary
+
+Design permission decision flow logic
+
+Tell me the next move.
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+✅ 1️⃣ AppUser
+@Entity
+@Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String username;
+
+    @Column(nullable = false, unique = true, length = 100)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AccountStatus accountStatus = AccountStatus.ACTIVE;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    // Relationships
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TeamMember> teamMemberships = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectMember> projectMemberships = new ArrayList<>();
+
+    @OneToMany(mappedBy = "assignee")
+    private List<Task> assignedTasks = new ArrayList<>();
+}
+
+✅ 2️⃣ Team
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TeamMember> members = new ArrayList<>();
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
+}
+
+✅ 3️⃣ TeamMember (Join Entity)
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class TeamMember {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Team team;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private AppUser user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TeamRole role;
+
+    @Column(nullable = false)
+    private String designation;
+
+    @CreationTimestamp
+    private LocalDateTime joinedAt;
+}
+
+✅ 4️⃣ Project
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Project {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private ProjectVisibility visibility;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Team team;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectMember> members = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Task> tasks = new ArrayList<>();
+}
+✅ 5️⃣ ProjectMember
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ProjectMember {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Project project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private AppUser user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProjectRole role;
+
+    @CreationTimestamp
+    private LocalDateTime joinedAt;
+}
+✅ 6️⃣ Task
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(length = 2000)
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Project project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private AppUser assignee;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<TaskAttachment> attachments = new ArrayList<>();
+}
+✅ 7️⃣ Comment
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Comment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 2000)
+    private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Task task;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private AppUser author;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+}
+
+✅ 8️⃣ TaskAttachment
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class TaskAttachment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String fileName;
+
+    @Column(nullable = false)
+    private String fileUrl;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private Task task;
+
+    @CreationTimestamp
+    private LocalDateTime uploadedAt;
+}
+✅ Cleaned Professional Versions (Conceptual)
+AppUserService
+
+registerUser
+
+getUserById
+
+getUserByEmail
+
+updateUser
+
+activateUser
+
+deactivateUser
+
+changeUserRole(userId, role, changedById)
+
+CommentService
+
+addComment(taskId, userId, content)
+
+modifyComment(commentId, userId, newContent)
+
+getCommentsByTask(taskId)
+
+getCommentById
+
+deleteComment(commentId, userId)
+
+ProjectMemberService
+
+addMember
+
+updateMemberRole
+
+getAllProjectMembers(projectId)
+
+removeMember
+
+isUserProjectMember
+
+ProjectService
+
+createProject
+
+updateProject
+
+getProjectsByTeam
+
+findProjectById
+
+deleteProject(projectId, deletedById)
+
+changeProjectStatus
+
+TaskAttachmentService
+
+uploadAttachment
+
+getAttachmentsByTask
+
+findAttachmentById
+
+deleteAttachment
+
+renameAttachment
+
+
+
+
+
+
+@Override
+public ResponseStructure<AppUser> updateUser(Long userId, String newUserName, String newPassword) {
+
+    AppUser user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    user.setUserName(newUserName);
+
+    if(newPassword != null && !newPassword.isBlank()) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+    }
+
+    AppUser updated = userRepository.save(user);
+
+    ResponseStructure<AppUser> response = new ResponseStructure<>();
+    response.setStatusCode(200);
+    response.setMessage("User updated");
+    response.setData(updated);
+
+    return response;
+}
+
+
+
+@Override
+public ResponseStructure<AppUser> deActivateUser(Long id) {
+
+    AppUser user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    if(!user.isActive()) {
+        throw new RuntimeException("User already deactivated");
+    }
+
+    user.setActive(false);
+
+    AppUser updated = userRepository.save(user);
+
+    ResponseStructure<AppUser> response = new ResponseStructure<>();
+    response.setStatusCode(200);
+    response.setMessage("User deactivated");
+    response.setData(updated);
+
+    return response;
+}
+
+
+
+@Override
+public ResponseStructure<AppUser> changeUserRole(Long userId, UserRole role, Long changedById) {
+
+    AppUser admin = userRepository.findById(changedById)
+            .orElseThrow(() -> new RuntimeException("Admin not found"));
+
+    if(admin.getRole() != UserRole.ADMIN) {
+        throw new RuntimeException("Only admin can change roles");
+    }
+
+    if(admin.getId().equals(userId)) {
+        throw new RuntimeException("Admin cannot change their own role");
+    }
+
+    AppUser user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    user.setRole(role);
+
+    AppUser updated = userRepository.save(user);
+
+    ResponseStructure<AppUser> response = new ResponseStructure<>();
+    response.setStatusCode(200);
+    response.setMessage("User role updated");
+    response.setData(updated);
+
+    return response;
+}
+
+
+
+AppUser
+   │
+   ├── TeamMember
+   │       │
+   │       └── Team
+   │              │
+   │              └── Project
+   │                      │
+   │                      ├── ProjectMember
+   │                      │
+   │                      └── Task
+   │                              │
+   │                              ├── Comment
+   │                              │
+   │                              └── TaskAttachment
+
+
+ResourceNotFoundException
+UnauthorizedException
+ConflictException
+InvalidRequestException
+FileStorageException
+AccessDeniedException
+
+
+1️⃣ AppUserController
+2️⃣ TeamController
+3️⃣ TeamMemberController
+4️⃣ ProjectController
+5️⃣ ProjectMemberController
+6️⃣ TaskController
+7️⃣ CommentController
+8️⃣ TaskAttachmentController

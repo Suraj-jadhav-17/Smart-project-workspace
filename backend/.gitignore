@@ -1,0 +1,53 @@
+# =====================
+# BACKEND (Spring Boot)
+# =====================
+
+# build
+backend/target/
+backend/bin/
+
+# logs
+*.log
+
+# compiled files
+*.class
+
+# uploads (runtime files)
+backend/uploads/
+
+# Eclipse / IDE junk
+.metadata/
+.settings/
+.classpath
+.project
+
+# =====================
+# FRONTEND (React/Vite)
+# =====================
+
+# dependencies
+frontend/node_modules/
+
+# build output
+frontend/dist/
+
+# env files
+frontend/.env
+frontend/.env.*
+
+# logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# =====================
+# GENERAL
+# =====================
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,13 @@
+.ring-progress{
+    fill: transparent;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s ease-in-out;
+
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  
+}
+.ring-bg{
+    fill:transparent;
+    stroke: #ddddde;
+}

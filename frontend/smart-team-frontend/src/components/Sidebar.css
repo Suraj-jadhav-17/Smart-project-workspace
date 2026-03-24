@@ -1,0 +1,36 @@
+.sidebar{
+    width: 150px;
+    background: #3e3b3b;
+    top: 60px;
+   height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    align-items:center;
+    justify-content:flex-start;
+    gap:80px;
+    position: sticky;
+   
+
+}
+.sidebar h1{
+    color: rgb(222, 221, 221);
+    
+}
+
+.sidebar ul{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    list-style: none;
+    font-size: 24px;
+    font-weight: 700;
+}
+.sidebar a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+.sidebar a:hover{
+    color: rgb(225, 225, 225);
+    transition: color 0.2s ease-in;
+}
