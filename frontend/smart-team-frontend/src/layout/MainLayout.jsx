@@ -1,32 +1,27 @@
 import React from 'react'
 import './MainLayout.css'
-import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
 
-const MainLayout = ({ children }) => {
+import { Outlet } from 'react-router-dom'
+import Navbar from './Navbar'
+import Sidebar from '../layout/Sidebar'
+const MainLayout = () => {
   return (
       <div className="app">
-      {/* Navbar */}
+      
       <div className="navbar">
-        <h2>Smart Workspace</h2>
+        <Navbar/>
       </div>
 
-      {/* Main Section */}
+
       <div className="main">
         
-        {/* Sidebar */}
+        
         <div className="sidebar">
-          <h3>Menu</h3>
-          <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Teams</a></li>
-          </ul>
+         <Sidebar/>
         </div>
 
-        {/* Content */}
         <div className="content">
-          {children}
+          <Outlet/>
         </div>
 
       </div>

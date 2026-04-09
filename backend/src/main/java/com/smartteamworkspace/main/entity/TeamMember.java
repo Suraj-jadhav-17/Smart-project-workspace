@@ -81,7 +81,7 @@ public class TeamMember {
 	
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    @JsonIgnore
+   
     private AppUser user;
     
     @Enumerated(EnumType.STRING)

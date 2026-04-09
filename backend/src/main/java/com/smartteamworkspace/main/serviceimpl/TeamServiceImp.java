@@ -97,8 +97,17 @@ public class TeamServiceImp implements TeamService {
 	   List<TeamMember> memberships = memberRepo.findByUser_UserId(userId);
 
 	   List<Team> teams = memberships.stream()
-	            .map(TeamMember::getTeam)
-	            .toList();
+			    .map(TeamMember::getTeam)
+			    .distinct()
+			    .toList();
+	   
+	   System.out.println("MEMBERSHIPS SIZE: " + memberships.size());
+
+	   memberships.forEach(m -> {
+	       System.out.println("TeamMember -> teamId: " + 
+	           (m.getTeam() != null ? m.getTeam().getId() : "NULL"));
+	   });
+	   
        ResponseStructure<List<Team>> response = new ResponseStructure<>();
        response.setStatusCode(HttpStatus.OK.value());
        response.setMessage("User teams fetched successfully");

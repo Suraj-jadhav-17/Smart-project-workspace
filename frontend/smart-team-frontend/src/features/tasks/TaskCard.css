@@ -1,0 +1,133 @@
+.task{
+    display: flex;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  cursor: pointer;
+  flex: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.task:hover{
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transform: scale(1.01);
+
+}
+.task img{
+   
+    width: 25px;
+    height: 25px;
+    margin-right: 3px;
+}
+.task p{
+  display: flex;
+  gap:10px;
+}
+.tasktitle{
+    display: flex;
+    justify-content:left;
+    gap: 5px;
+}
+.header{
+    font-size: 18px;
+    font-weight: 800;
+    color: #333333;
+    display: flex;
+    justify-content:space-between;
+    gap:35px;
+}
+.title {
+    flex: 3;
+   font-size: 18px;  
+   font-weight: 800; 
+}
+.information{
+    display: flex;
+    gap:30px;
+    width: 85%;
+    padding: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    justify-content:flex-start
+}
+.information p{
+    
+    display: flex;
+}
+.project{
+    text-align: right;
+   
+    color: #014b9a;
+     font-size: 18px;   
+     font-weight: 800;
+}
+.priority{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+     color: #25272b;
+      
+      font-size: 14px;
+}
+
+.priority-high {
+  background-color: #F87171;
+ 
+  border-radius: 999px;
+padding: 4px 10px;
+  /* border-radius: 18px; */
+  width: fit-content;
+ 
+}
+.priority-medium {
+  background-color: #e9c523 ;
+  font-weight: 400;
+   border-radius: 999px;
+padding: 4px 10px;
+  
+  width: fit-content;
+}
+.priority-low {
+  background-color: #22C55E;
+  font-weight: 400;
+ border-radius: 999px;
+padding: 4px 10px;
+   
+  width: fit-content;
+}
+.status{
+  display: flex;
+  align-items: center;
+}
+.status-todo {
+  background-color:#e9c523 ;
+  font-weight: 400;
+  border-radius: 999px;
+padding: 4px 10px;
+  width: fit-content;
+}
+.status-in_progress {
+  background-color: #4492f9da;
+  font-weight: 400;
+border-radius: 999px;
+padding: 4px 10px;
+  width: fit-content;
+}
+.status-completed {
+  background-color: #22C55E;
+  font-weight: 400;
+ border-radius: 999px;
+padding: 4px 10px;
+  width: fit-content;
+}
+.status-delayed {
+  background-color: #F87171;
+  font-weight: 400;
+  padding: 4px 12px;
+ border-radius: 999px;
+padding: 4px 10px;
+  width: fit-content;
+}
+/* 5278b5 */

@@ -10,3 +10,7 @@
 body{
     background-color: rgb(234, 235, 251);
 }
+html, body {
+  height: 100%;
+  overflow: hidden;
+}

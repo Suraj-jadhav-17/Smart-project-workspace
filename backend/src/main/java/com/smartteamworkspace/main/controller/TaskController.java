@@ -92,4 +92,8 @@ public class TaskController {
 	 public ResponseStructure<List<Task>> getTaskAssignedToUser(@PathVariable Long userId){
 		 return taskService.getTasksAssignedToUser(userId);
 	 }
+	    @GetMapping("/team/{teamId}")
+	 public ResponseStructure<List<Task>> getTasksByTeam(@PathVariable Long teamId){
+		 return taskService.getTasksByTeam(teamId);
+	 }
 }

@@ -3,6 +3,7 @@ package com.smartteamworkspace.main.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.smartteamworkspace.main.entity.TeamMember;
@@ -12,6 +13,7 @@ public interface TeamMemberRepo extends JpaRepository<TeamMember, Long> {
    Optional<TeamMember> findByTeam_IdAndUser_UserId(Long teamId, Long userId);
    
    boolean existsByTeam_IdAndUser_UserId(Long teamId,Long userId);
+   @Query("SELECT tm FROM TeamMember tm JOIN FETCH tm.team WHERE tm.user.userId = :userId")
    List<TeamMember> findByUser_UserId(Long userId);
    long countByTeam_IdAndRole(Long teamId, TeamRole role);
 }

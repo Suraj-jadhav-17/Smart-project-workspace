@@ -25,4 +25,6 @@ public interface ProjectService {
 	ResponseStructure<Project> addTeamToProject(Long projectId,Long TeamId,Long userId);
 	
 	ResponseStructure<List<Project> >getAllProjectByUser(Long userId);
+	
+	ResponseStructure<List<Project>> getProjectsByUser(Long userId);
 }

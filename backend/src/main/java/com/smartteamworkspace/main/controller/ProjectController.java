@@ -69,4 +69,8 @@ public class ProjectController {
 	public ResponseStructure<List<Project>> getAllProjectByUser(@PathVariable Long userId){
 		return projectService.getAllProjectByUser(userId);
 	}
+	 @GetMapping("/fetchAll/{userId}")
+	 public ResponseStructure<List<Project>> getAllProjects(@PathVariable Long userId){
+		 return projectService.getProjectsByUser(userId);
+	 }
 }

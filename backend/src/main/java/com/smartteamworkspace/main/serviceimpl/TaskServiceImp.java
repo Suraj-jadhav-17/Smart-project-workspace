@@ -203,6 +203,13 @@ public class TaskServiceImp implements TaskService{
 	return response ;
  }
  
- 
+ public ResponseStructure<List<Task>> getTasksByTeam(Long teamId) {
+	    List<Task> tasks=taskRepo.findByProject_Team_Id(teamId);
+	    ResponseStructure<List<Task>> response = new ResponseStructure<>();
+	    response.setData(tasks);
+	    response.setMessage(tasks.isEmpty()?"No task found":"Tasks fetched ");
+	    response.setStatusCode(200);
+	    return response;
+	}
 	
 }

@@ -1,4 +1,4 @@
-package com.smartteamworkspace.main.configration;
+package com.smartteamworkspace.main.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

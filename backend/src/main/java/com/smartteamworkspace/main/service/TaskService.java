@@ -20,6 +20,5 @@ public interface TaskService {
 	ResponseStructure<List<Task>> getTasksByProject(Long projectId);
 	ResponseStructure<Task> getTaskById(Long id);
 	ResponseStructure<List<Task>> getTasksAssignedToUser(Long userId);
-	
-	
+    ResponseStructure<List<Task>>  getTasksByTeam(Long teamId)	;
 }

@@ -2,6 +2,7 @@ package com.smartteamworkspace.main.serviceimpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -183,12 +184,7 @@ public class ProjectServiceImp implements ProjectService{
 		AppUser user = userRepo.findById(userId)
 				         .orElseThrow(()-> new ResourceNotFoundException("User not found") );
 		   ResponseStructure<List<Project>> response= new ResponseStructure<>();
-		if(user.getRole()==UserRole.ADMIN) {
-			response.setData(projectRepo.findAll());
-			response.setStatusCode(200);
-			response.setMessage("Projects fetched");
-			return response;
-		}
+		
 		 List<ProjectMember> memberships = projectMemRepo.findByUser_UserId(userId);
 	     List<Project> projects = memberships.stream()
 	    		  .map(ProjectMember:: getProject)
@@ -198,6 +194,26 @@ public class ProjectServiceImp implements ProjectService{
 		response.setStatusCode(200);
 		response.setMessage("Projects fetched");
 		
+		return response;
+	}
+	@Override
+	public ResponseStructure<List<Project>> getProjectsByUser(Long userId) {
+		AppUser user = userRepo.findById(userId)
+		         .orElseThrow(()-> new ResourceNotFoundException("User not found") );
+		ResponseStructure<List<Project>> response= new ResponseStructure<>();
+		
+		if(user.getRole()==UserRole.ADMIN) {
+			response.setData(projectRepo.findAll());
+			
+		}else {
+			List<Project> projects= projectRepo.findAll().stream().filter(project->project.getVisibility()==ProjectVisibility.PUBLIC 
+					|| project.getMembers().contains(user)).collect(Collectors.toList());
+			
+			response.setData(projects);
+			
+		}
+		response.setStatusCode(200);
+		response.setMessage("Project fetched");
 		return response;
 	}
 
