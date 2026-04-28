@@ -1,0 +1,81 @@
+.projects{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+}
+.project-stat{
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    margin-left:20px;
+}
+.project-stat-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: #f9f9f9;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow:  0 2px 6px rgba(0,0,0,0.1);
+    width:160px;
+}
+.project-stat-card p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #464545;
+    margin: 0;
+}
+.projects-nav{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 14px 20px;
+}
+.dropdown-container{
+  
+   display: flex;
+    gap: 15px;
+}
+.dropdown-container select{
+    padding: 8px 10px;
+    box-shadow:  0 2px 6px rgba(0, 0, 0, 0.127);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown-container select:focus{
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.127), 0 0 0 2px #0a4b91a1;
+}
+.dropdown-container select option{
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+}
+.searchbar{
+    flex:2;
+ 
+   border-radius: 4px;
+}
+.searchbar input{
+    width: 70%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.projects-container{
+    display: flex;
+    flex-direction: row;
+   
+    gap: 20px;
+    width: 100%;
+}
+.projects-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-left:30px;
+}

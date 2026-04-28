@@ -41,10 +41,10 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   flex-direction: column;
   gap: 15px;
 }
-.project-details p {
+.project-details p ,.projects-header p{
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
   font-size: 14px;
   color: #4b5563;
 }
@@ -55,7 +55,7 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   
 }
 
-.projectCard img {
+.projectCard img ,.projects-card img {
   width: 20px;
   height: 20px;
   margin-right: 8px;
@@ -69,4 +69,90 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   background-color: rgba(184, 17, 17, 0.303);
   padding: 3px 8px;
   border-radius: 16px;
+}
+.projects-card{
+   background: #ffffff;
+   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-radius: 12px;
+    transition: 0.2s;
+    cursor: pointer;
+    /* padding: 8px; */
+    width:385px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.projects-card:hover{
+     transform: translateY(-5px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.projects-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 15px;
+  border-bottom: #849ec9 solid 2px;
+  height:80px;
+}
+.projects-details{
+  padding: 0px 14px 14px 14px;
+  display: flex;
+  flex-direction:column;
+  gap:8px;
+}
+.projects-status-team{
+  display: flex;
+  gap:80px;
+}
+.projects-status-team p{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.project-staus {
+  display: flex;
+  align-items: center;
+  
+  font-size: 14px;
+  color: #4b5563;
+}
+.project-staus .active {
+  background-color: #b6c9f0;
+  padding: 2px 8px;
+  font-weight: 600;
+  border-radius: 16px;
+  color: #1e40af;
+}
+.project-staus .completed {
+  background-color: #c8e6c9;
+  padding: 2px 8px;
+  font-weight: 600;
+  border-radius: 16px;
+  color: #2e7d32;
+}
+.project-staus .delayed {
+  background-color: #ffccbc;
+  padding: 2px 8px;
+  font-weight: 600;
+  border-radius: 16px;
+  color: #d84315;
+}
+.project-staus .cancelled {
+  background-color: #ffcdd2;
+  padding: 2px 8px;
+  font-weight: 600;
+  border-radius: 16px;
+  color: #c62828;
+}
+.projects-dates{
+  display: flex;
+  gap:70px;
+  
+}
+.projects-dates p{
+  display:flex;
+  align-items:center;
 }

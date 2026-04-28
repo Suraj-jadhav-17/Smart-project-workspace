@@ -219,11 +219,11 @@ public class AppUserServiceImp implements AppUserService{
 				if(!optional.isPresent()) {
 					throw new ResourceNotFoundException("Admin user not found");
 				}
-		AppUser admin= optional.get();//admin
+		AppUser admin= optional.get();
 				if(admin.getRole()!=UserRole.ADMIN) {
 					throw new AccessDeniedException("Only admin can change roles");
 				}
-		Optional<AppUser> optionalUser= userRepo.findById(userId);//user
+		Optional<AppUser> optionalUser= userRepo.findById(userId);
 		
 				if(!optionalUser.isPresent()) {
 					throw new ResourceNotFoundException("User not found");

@@ -6,6 +6,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: 0.2s ease;
   border: 1px solid #f0f0f0;
+  cursor: pointer;
 }
 
 .team-card:hover {
@@ -30,7 +31,7 @@
 
 
 .team-role {
-  font-size: 14px;
+  font-size: 12px;
   padding: 4px 10px;
   border-radius: 20px;
   background: #e3f2fd;
@@ -65,20 +66,32 @@
 
 .task-stats {
   display: flex;
-  justify-content: space-between;
-  font-size: 14px;
+  justify-content: flex-start;
+  font-size: 16px;
   font-weight: 500;
+  gap: 28px;
+  margin-top: 20px;
+}
+.task-stats img{
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
 }
 
-
-.task-stats span:nth-child(1) {
-  color: #2e7d32; /* completed - green */
+.task-stats span {
+  display: flex;
+  align-items: center;
+  color: #565656;
+  font-weight: 500;
+}
+/* .task-stats span:nth-child(1) {
+  color: #2e7d32; 
 }
 
 .task-stats span:nth-child(2) {
-  color: #f9a825; /* in progress - yellow */
+  color: #f9a825; 
 }
 
 .task-stats span:nth-child(3) {
-  color: #d32f2f; /* delayed - red */
-}
+  color: #d32f2f; 
+} */

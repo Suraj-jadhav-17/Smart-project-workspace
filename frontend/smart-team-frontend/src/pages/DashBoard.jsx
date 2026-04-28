@@ -111,7 +111,7 @@ const DashBoard = () => {
           {projects.length === 0 ? (
             <p>No projects found</p>
           ) : (
-            projects.map(project => <ProjectCard key={project.id} project={project}  />)
+            projects.map(project => <ProjectCard key={project.id} project={project} varient="dashboard" />)
           )}
         </div>
       </div>

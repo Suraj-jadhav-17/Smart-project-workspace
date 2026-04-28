@@ -1,6 +1,9 @@
 import React, { use, useEffect, useState } from 'react'
 import api from '../../api/api';
 import './TeamCard.css'
+import completedIcon from '../../assets/completed.png';
+import inProgressIcon from '../../assets/in-progress.png';
+import delayedIcon from '../../assets/delayed.png';
 const TeamCard = ({ team, userId ,myTaskCount}) => {
     const [members, setMembers]= useState([]);
     const [teamTasks, setTeamTasks] = useState([]);
@@ -44,9 +47,9 @@ const myMember = members.find(m => m.user.userId === userId);
       <p className="progress-text">Team Progress: {progress}%</p>
 
       <div className="task-stats">
-        <span>Completed: {completed}</span>
-        <span>In Progress: {inprogress}</span>
-        <span>Delayed: {delayed}</span>
+        <span><img src={completedIcon} alt="Completed" /> {completed}</span>
+        <span><img src={inProgressIcon} alt="In Progress" />  {inprogress}</span>
+        <span><img src={delayedIcon} alt="Delayed" /> {delayed}</span>
       </div>
     </div>
   )
