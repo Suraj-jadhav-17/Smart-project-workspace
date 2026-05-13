@@ -57,14 +57,55 @@
 }
 .searchbar{
     flex:2;
- 
+    display: flex;
+    justify-content: flex-start;
+    gap: 1px;
+    align-items: center;
    border-radius: 4px;
 }
+
 .searchbar input{
     width: 70%;
     padding: 8px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
+     border-top-right-radius: 0px;
+   border-bottom-right-radius: 0px;
+   transition: all 0.2s ease-in-out;
+}
+.searchbar input:focus{
+   border:#0a5cb4cd solid 2px;
+   outline: none;
+   
+}
+.searchbar button{
+    height: 35px;
+    width: 45px;
+    padding:2px;
+   border-radius: 4px;
+   border: hidden 2px solid #0a5cb4cd;
+   border-top-left-radius: 0px;
+   border-bottom-left-radius: 0px;
+   border-left: #6e6e6e solid 2px;
+   cursor: pointer;
+  background-color: #d8d8d8;
+  transition: all 0.2s ease-in-out;
+
+}
+.searchbar button:hover{
+  background-color: #afafaf;
+  border: #0a5cb4cd solid 2px;
+   
+}
+.searchbar button:active{
+    transform: scale(0.95);
+}
+.searchbar button img {
+ width:25px;
+ height: 25px;
+  border-radius: 4px;
+  margin-top: 2px;
+  
 }
 .projects-container{
     display: flex;
@@ -78,4 +119,27 @@
     flex-wrap: wrap;
     gap: 30px;
     margin-left:30px;
+}
+.create-project{
+    display: flex;
+    align-items: center;
+}
+.create-project button{
+    padding: 8px 10px;
+    border: 1px solid #0a5cb4cd;
+    border-radius: 8px;
+    background-color:#0a5cb4cd ;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s 0.1s ease-in-out;
+}
+.create-project button:hover{
+    transform: scale(1.01);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+
+}
+.create-project button:active{
+    transform: scale(0.95);
+    background-color: #0a4b91a1;
 }

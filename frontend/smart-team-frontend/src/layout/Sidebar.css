@@ -55,7 +55,7 @@
 .sidebar a:hover{
     background: #e0e0e066;
    color: #292a2b;
-    transition: color 0.2s ease-in;
+    transition: color 0.3s ease-in;
 }
 .sidebar a.active{
     background: #1e3b8ab9;
